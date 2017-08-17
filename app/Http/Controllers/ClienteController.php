@@ -22,4 +22,16 @@ class ClienteController extends Controller
     {
     	return view('cliente.adicionar');
     }
+
+    public function salvar(Request $request)
+    {
+    	\App\Cliente::create($request->all());
+
+    	\Session::flash('flash_message', [
+    			'msg' => 'Cliente adcionado com sucesso!',
+    			'class' => 'alert-success'
+    		]);
+    	
+    	return redirect()->route('cliente.adicionar');
+    }
 }

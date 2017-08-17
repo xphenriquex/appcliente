@@ -12,7 +12,9 @@
                 </ol>
 
                 <div class="panel-body">
-                <form action="" method="post">
+                <form action="{{ route('cliente.salvar') }}" method="post">
+                    
+                    {{ csrf_field() }}
                     <div class="form-group">
                         <label for="nome">Nome</label>
                         <input type="text" name="nome" class="form-control" placeholder="Nome do cliente">
