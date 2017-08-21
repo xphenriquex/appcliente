@@ -1,6 +1,12 @@
-    @extends('layouts.app')
+<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+
+
+@extends('layouts.app')
 
 @section('content')
+
+
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -13,7 +19,6 @@
                     <p>
                         <a class="btn btn-info" href="{{ route('cliente.adicionar') }}">Adcionar</a>
                     </p>
-
 
                     <table class="table table-bordered">
                         <thead>
@@ -34,8 +39,11 @@
                                    <td>{{ $cliente->email }}</td>
                                    <td>{{ $cliente->endereco }}</td>
                                    <td>
-                                       <a class="btn btn-default" href="#">Editar</a>
-                                       <a class="btn btn-danger" href="#">Deletar</a>
+                                       <a class="btn btn-default" href="{{ route('cliente.editar', $cliente->id) }}">Editar</a>
+                                       <a data-toggle="modal" id="{{ $cliente->id }}" data-target="#modalDeletar{{ $cliente->id }}" class="btn btn-danger exclusao" >Deletar</a>
+
+                                       @include('cliente._modal-delete')
+
                                    </td>
                                 </tr>
 
@@ -53,3 +61,14 @@
     </div>
 </div>
 @endsection
+
+<script type="text/javascript">
+    $(document).ready(function() { 
+        $('.deletar').click(function(){
+            var id = this.id;
+            var url = '{{ route('cliente.deletar', ':id') }}';
+            url = url.replace(':id', id);
+            window.location.href = url;
+        });
+    });
+</script>
