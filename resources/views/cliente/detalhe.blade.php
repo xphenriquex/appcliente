@@ -12,13 +12,14 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <ol class="breadcrumb panel-heading">
-                    <li class="Active">Cliente</li>
+                    <li><a href="{{ route('cliente.index') }}">Clientes</a></li>
+                    <li class="Active">Detalhe</li>
                 </ol>
 
                 <div class="panel-body">
-                    <p>
-                        <a class="btn btn-info" href="{{ route('cliente.adicionar') }}">Adcionar</a>
-                    </p>
+                    <p> <b>Cliente</b> {{ $cliente->nome }} </p>
+                    <p> <b>E-mail</b> {{ $cliente->email }} </p>
+                    <p> <b>Endereço</b> {{ $cliente->endereco }} </p>
 
                     <table class="table table-bordered">
                         <thead>
@@ -31,17 +32,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($clientes as $cliente)
-
+                            @foreach($cliente->telefones as $telefone)
                                 <tr>
-                                   <th scope="row">{{ $cliente->id }}</th> 
-                                   <td>{{ $cliente->nome }}</td>
+                                   <th scope="row">{{ $telefone->id }}</th> 
+                                   <td>{{ $telefone->telefone }}</td>
                                    <td>{{ $cliente->email }}</td>
                                    <td>{{ $cliente->endereco }}</td>
                                    <td>
-                                       <a class="btn btn-default" href="{{ route('cliente.detalhe', $cliente->id) }}">Detalhe   </a>
-                                       <a class="btn btn-default" href="{{ route('cliente.editar', $cliente->id) }}">Editar</a>
-                                       <a data-toggle="modal" id="{{ $cliente->id }}" data-target="#modalDeletar{{ $cliente->id }}" class="btn btn-danger exclusao" >Deletar</a>
+                                       <a class="btn btn-default" href="#">Editar</a>
+                                       <a data-toggle="modal" id="#" data-target="#modalDeletar{{ $cliente->id }}" class="btn btn-danger exclusao" >Deletar</a>
 
                                        @include('cliente._modal-delete')
 
@@ -53,9 +52,10 @@
 
                     </table>
 
-                    <div align="center">
-                        {!! $clientes->links() !!}
-                    </div>
+                    <p>
+                        <a class="btn btn-info" href="{{ route('telefone.adicionar', $cliente->id) }}">Adcionar Telefones</a>
+                    </p>
+                   
                 </div>
             </div>
         </div>
